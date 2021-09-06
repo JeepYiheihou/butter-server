@@ -3,8 +3,8 @@ const path = require("path")
 
 async function _get(req, res) {
     try {
-        const imageName = req.params.imageName
-        const filePath = path.resolve(__dirname + `../../../files/images/${imageName}`)
+        const fileName = req.params.fileName
+        const filePath = path.resolve(__dirname + `../../../files/avatars/${fileName}`)
         res.sendFile(filePath)
     } catch(err) {
         console.log(err)

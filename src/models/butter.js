@@ -1,8 +1,10 @@
 const Butter = function(butter) {
-    this.id = butter.id
-    this.creater = butter.creater
+    this.butterId = butter.butterId
+    this.title = butter.title
+    this.contentText = butter.contentText
+    this.ownerId = butter.ownerId
     this.type = butter.type
-    this.imageUrl = butter.imageUrl
+    this.mediaItems = butter.mediaItems
 }
 
 module.exports = Butter
