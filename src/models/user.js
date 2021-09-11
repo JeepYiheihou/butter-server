@@ -5,7 +5,8 @@ const User = function(user) {
     this.address = user.address
     this.gender = user.gender
     this.avatarUrl = user.avatarUrl
-    this.wishList = user.wishList
+    this.creationTimestamp = user.creationTimestamp
+    this.status = user.status
 }
 
 module.exports = User

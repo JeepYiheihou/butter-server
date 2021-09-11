@@ -1,0 +1,50 @@
+users:
+  - userId:               int
+  - creationTimestamp:    int
+  - status:               varchar(255)
+  - name:                 varchar(255)
+  - email:                varchar(255)
+  - address:              varchar(255)
+  - gender:               varchar(255)
+  - avatarUrl:            varchar(255)
+
+wishes:
+  - wishId:               int
+  - userId:               int
+  - creationTimestamp:    int
+  - priority:             int
+  - status:               varchar(255)
+  - contentText:          varchar(255)
+
+butters:
+  - butterId:             int
+  - ownerId:              int
+  - creationTimestamp:    varchar(255)
+  - type:                 varchar(255)
+  - status:               varchar(255)
+  - title:                varchar(255)
+  - contentText:          varchar(8192)
+
+comments:
+  - commentId:            int
+  - butterId:             int
+  - posterUserId:         int
+  - creationTimestamp:    int
+  - status:               varchar(255)
+  - contentText:          varchar(8192)
+
+proposals:
+  - proposalId:           int
+  - fromButterId:         int
+  - toButterId:           int
+  - creationTimestamp:    int
+  - type:                 varchar(255)
+  - status:               varchar(255)
+
+media_items:
+  - mediaItemId:          int
+  - butterId:             int
+  - type:                 varchar(255)
+  - url:                  varchar(255)
+  - displayHeight:        int
+  - displayWidth:         int
