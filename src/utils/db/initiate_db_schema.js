@@ -1,16 +1,7 @@
 const yaml = require("js-yaml")
 const fs = require("fs")
 
-const connection = require("../network/mysql_connection")
-connection.connect()
-
-// Parse in the data models
-var models
-try {
-    models = yaml.load(fs.readFileSync("./models.yaml", "utf8"))
-} catch (e) {
-    console.log(e)
-}
+const connPool = require("../network/mysql_connection")
 
 function generateCreateTableCommandLine(tableName, paramList) {
     var paramDetails = ""
@@ -34,14 +25,23 @@ function generateCreateTableCommandLine(tableName, paramList) {
     return commandLine 
 }
 
-// Create tables
-try {
+async function main() {
+    // Parse in the data models
+    var models
+    try {
+        models = yaml.load(fs.readFileSync("./models.yaml", "utf8"))
+    } catch (e) {
+        console.log(e)
+    }
+
+    promisePool = connPool.promise()
+    // Create tables
     for (tableName in models) {
         let commandLine = generateCreateTableCommandLine(tableName, models[tableName])
-        connection.query(commandLine)
+        await promisePool.query(commandLine)
+        console.log(tableName)
     }
-} catch (e) {
-    console.log(e)
+    connPool.end()
 }
 
-connection.end()
+main()

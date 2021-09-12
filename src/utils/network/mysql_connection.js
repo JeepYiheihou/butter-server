@@ -1,9 +1,10 @@
 const mysql = require("mysql2")
-const connection = mysql.createConnection({
+const connPool = mysql.createPool({
+    connectionLimit: 10,
     host: "localhost",
     user: "butter",
     password: "password",
     database: "butterdb"
-})
+}, console.log("Connected to mysql butterdb"))
 
-module.exports = connection
+module.exports = connPool

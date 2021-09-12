@@ -1,35 +1,7 @@
 const yaml = require("js-yaml")
 const fs = require("fs")
 
-const connection = require("../network/mysql_connection")
-const { assert } = require("console")
-const { param } = require("../../routes/avatars_routes")
-connection.connect()
-
-// Parse in the data models
-var models
-try {
-    models = yaml.load(fs.readFileSync("./models.yaml", "utf8"))
-} catch (e) {
-    console.log(e)
-}
-
-function addEntry(connection, tableName, valuesItem) {
-    try {
-        const paramList = models[tableName]
-        paramList.forEach(element => {
-            for (let paramName in element) {
-                if (!(paramName in valuesItem)) {
-                    throw `Parameter ${paramName} is needed but not given when populating table ${tableName}.`
-                }
-            }
-        })
-        const commandLine = `INSERT INTO ${tableName} SET ?`
-        connection.query(commandLine, valuesItem)
-    } catch (e) {
-        console.log(e)
-    }
-}
+const connPool = require("../network/mysql_connection")
 
 const users = [
     {
@@ -53,7 +25,6 @@ const users = [
         status: "active" 
     }
 ]
-
 
 const whenYouAreOld = 
 "When you are old and gray and full of sleep,\n \
@@ -323,29 +294,66 @@ const mediaItems = [
     
 ]
 
-// Add users
-users.forEach(user => {
-    addEntry(connection, "users", user)
-})
+async function addEntry(promisePool, tableName, valuesItem, models) {
+    try {
+        const paramList = models[tableName]
+        paramList.forEach(element => {
+            for (let paramName in element) {
+                if (!(paramName in valuesItem)) {
+                    throw `Parameter ${paramName} is needed but not given when populating table ${tableName}.`
+                }
+            }
+        })
+        const commandLine = `INSERT INTO ${tableName} SET ?`
+        await promisePool.query(commandLine, valuesItem)
+    } catch (e) {
+        console.log(e)
+    }
+}
 
-butters.forEach(butter => {
-    addEntry(connection, "butters", butter)
-})
+async function main() {
+    // Parse in the data models
+    var models
+    try {
+        models = yaml.load(fs.readFileSync("./models.yaml", "utf8"))
+    } catch (e) {
+        console.log(e)
+    }
 
-wishes.forEach(wish => {
-    addEntry(connection, "wishes", wish)
-})
+    promisePool = connPool.promise()
 
-comments.forEach(comment => {
-    addEntry(connection, "comments", comment)
-})
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i]
+        await addEntry(promisePool, "users", user, models)
+    }
 
-proposals.forEach(proposal => {
-    addEntry(connection, "proposals", proposal)
-})
+    for (let i = 0; i < butters.length; i++) {
+        const butter = butters[i]
+        await addEntry(promisePool, "butters", butter, models)
+    }
 
-mediaItems.forEach(mediaItem => {
-    addEntry(connection, "media_items", mediaItem)
-})
+    for (let i = 0; i < wishes.length; i++) {
+        const wish = wishes[i]
+        await addEntry(promisePool, "wishes", wish, models)
+    }
 
-connection.end()
+    for (let i = 0; i < comments.length; i++) {
+        const comment = comments[i]
+        await addEntry(promisePool, "comments", comment, models)
+    }
+
+    for (let i = 0; i < proposals.length; i++) {
+        const proposal = proposals[i]
+        await addEntry(promisePool, "proposals", proposal, models)
+    }
+    
+    for (let i = 0; i < mediaItems.length; i++) {
+        const mediaItem = mediaItems[i]
+        await addEntry(promisePool, "media_items", mediaItem, models)
+    }
+
+    connPool.end()
+}
+
+
+main()
