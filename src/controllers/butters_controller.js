@@ -1,10 +1,6 @@
-const fs = require("fs")
-const path = require("path")
 const Butter = require("../models/butter")
 const MediaItem = require("../models/media_item")
 const ButterComment = require("../models/comment")
-
-const connPool = require("../utils/network/mysql_connection")
 
 async function _getAll(req, res) {
 
@@ -42,7 +38,7 @@ async function _getAll(req, res) {
 
     const butters = [
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute1", 
+            butterId: 1, userId: 2, type: "activeButter", title: "cute1", 
             contentText: contentText,
             mediaItems: [
                 mediaItems[1],
@@ -50,7 +46,7 @@ async function _getAll(req, res) {
                 mediaItems[3]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute2",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute2",
             contentText: contentText,
             mediaItems: [
                 mediaItems[3],
@@ -58,7 +54,7 @@ async function _getAll(req, res) {
                 mediaItems[4]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "可爱3",
+            butterId: 1, userId: 2, type: "activeButter", title: "可爱3",
             contentText: contentText,
             mediaItems: [
                 mediaItems[5],
@@ -66,7 +62,7 @@ async function _getAll(req, res) {
                 mediaItems[4]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute4",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute4",
             contentText: contentText,
             mediaItems: [
                 mediaItems[10],
@@ -74,7 +70,7 @@ async function _getAll(req, res) {
                 mediaItems[3]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute5",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute5",
             contentText: contentText,
             mediaItems: [
                 mediaItems[9],
@@ -82,7 +78,7 @@ async function _getAll(req, res) {
                 mediaItems[4]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute6",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute6",
             contentText: contentText,
             mediaItems: [
                 mediaItems[8],
@@ -90,7 +86,7 @@ async function _getAll(req, res) {
                 mediaItems[5]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute7",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute7",
             contentText: contentText,
             mediaItems: [
                 mediaItems[2],
@@ -98,7 +94,7 @@ async function _getAll(req, res) {
                 mediaItems[9]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute8",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute8",
             contentText: contentText,
             mediaItems: [
                 mediaItems[7],
@@ -106,7 +102,7 @@ async function _getAll(req, res) {
                 mediaItems[6]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute9",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute9",
             contentText: contentText,
             mediaItems: [
                 mediaItems[11],
@@ -114,7 +110,7 @@ async function _getAll(req, res) {
                 mediaItems[9]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute10",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute10",
             contentText: contentText,
             mediaItems: [
                 mediaItems[12],
@@ -122,7 +118,7 @@ async function _getAll(req, res) {
                 mediaItems[6]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute11",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute11",
             contentText: contentText,
             mediaItems: [
                 mediaItems[4],
@@ -130,7 +126,7 @@ async function _getAll(req, res) {
                 mediaItems[5]
         ]}),
         new Butter({
-            butterId: 1, ownerId: 2, type: "activeButter", title: "cute12",
+            butterId: 1, userId: 2, type: "activeButter", title: "cute12",
             contentText: contentText,
             mediaItems: [
                 mediaItems[10],
@@ -142,24 +138,20 @@ async function _getAll(req, res) {
     res.json(butters)
 }
 
+async function _getByButterId(req, res) {
+    const butterId = req.params.butterId
+    const butter = await Butter.getByButterId(butterId)
+    res.json(butter)
+}
+
 async function _getByUserId(req, res) {
     const userId = req.params.userId
-    
+    const butters = await Butter.getByUserId(userId)
     res.json(butters)
 }
 
-async function _getCommentsByButterId(req, res) {
-    comments = [
-        new ButterComment({commentId: 1, butterId: 1, posterUserId: 2, timestamp: 123, content: "This is nice"}),
-        new ButterComment({commentId: 2, butterId: 1, posterUserId: 2, timestamp: 123, content: "这个很棒"}),
-        new ButterComment({commentId: 3, butterId: 1, posterUserId: 2, timestamp: 123, content: "可是我真的很想回到过去"}),
-        new ButterComment({commentId: 4, butterId: 1, posterUserId: 2, timestamp: 123, content: "Would you ever regret?"}),
-        new ButterComment({commentId: 5, butterId: 1, posterUserId: 2, timestamp: 123, content: "就只好先这样了吧"}),
-        new ButterComment({commentId: 6, butterId: 1, posterUserId: 2, timestamp: 123, content: "好吧呀\n这就是生活吧"}),
-        new ButterComment({commentId: 7, butterId: 1, posterUserId: 2, timestamp: 123, content: "Viva la vida"}),
-
-    ]
-    res.json(comments)
+exports.getByButterId = function(req, res) {
+    _getByButterId(req, res)
 }
 
 exports.getByUserId = function(req, res) {
@@ -168,8 +160,4 @@ exports.getByUserId = function(req, res) {
 
 exports.getAll = function(req, res) {
     _getAll(req, res)
-}
-
-exports.getCommentsByButterId = function(req, res) {
-    _getCommentsByButterId(req, res)
 }

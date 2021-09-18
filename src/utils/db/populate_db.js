@@ -44,7 +44,7 @@ const contentText = "喂马，劈柴，周游世界\n" + whenYouAreOld
 const butters = [
     {
         butterId: 1,
-        ownerId: 1,
+        userId: 1,
         creationTimestamp: 10000,
         type: "gallery",
         status: "active",
@@ -53,7 +53,7 @@ const butters = [
     },
     {
         butterId: 2,
-        ownerId: 1,
+        userId: 1,
         creationTimestamp: 10001,
         type: "gallery",
         status: "active",
@@ -62,7 +62,7 @@ const butters = [
     },
     {
         butterId: 3,
-        ownerId: 2,
+        userId: 2,
         creationTimestamp: 10001,
         type: "gallery",
         status: "active",
@@ -71,7 +71,7 @@ const butters = [
     },
     {
         butterId: 4,
-        ownerId: 1,
+        userId: 1,
         creationTimestamp: 10005,
         type: "gallery",
         status: "active",

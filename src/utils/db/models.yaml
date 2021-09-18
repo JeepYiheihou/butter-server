@@ -18,7 +18,7 @@ wishes:
 
 butters:
   - butterId:             int
-  - ownerId:              int
+  - userId:              int
   - creationTimestamp:    varchar(255)
   - type:                 varchar(255)
   - status:               varchar(255)

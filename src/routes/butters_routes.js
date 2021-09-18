@@ -4,8 +4,8 @@ const buttersController = require("../controllers/butters_controller")
 
 router.get("/all", buttersController.getAll)
 
-router.get("/userId/:userId", buttersController.getByUserId)
+router.get("/butterId/:butterId", buttersController.getByButterId)
 
-router.get("/comments/butterId/:butterId", buttersController.getCommentsByButterId)
+router.get("/userId/:userId", buttersController.getByUserId)
 
 module.exports = router;
