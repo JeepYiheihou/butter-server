@@ -18,7 +18,7 @@ async function main() {
     try {
         models = yaml.load(fs.readFileSync("./models.yaml", "utf8"))
     } catch (e) {
-        console.log(e)
+        throw e
     }
     
     promisePool = connPool.promise()

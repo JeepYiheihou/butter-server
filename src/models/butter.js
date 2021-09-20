@@ -3,6 +3,8 @@ const constants = require("../utils/constants")
 const BUTTERS_DB_TABLE_NAME = constants.BUTTERS_DB_TABLE_NAME
 
 const MediaItem = require("./media_item")
+const res = require("express/lib/response")
+const { response } = require("express")
 
 const Butter = function(butter) {
     this.butterId = butter.butterId
@@ -38,8 +40,10 @@ Butter.create = async function(butter) {
             mediaItem.butterId = insertIdButter
             await MediaItem.create(mediaItem)
         }
+
+        return insertIdButter
     } catch(e) {
-        console.log(e)
+        throw e
     }
 }
 
@@ -58,7 +62,7 @@ Butter.getByButterId = async function(butterId) {
         response.mediaItems = await MediaItem.getByButterId(butterId)
         return response
     } catch(e) {
-        console.log(e)
+        throw e
     }
 }
 
@@ -78,7 +82,7 @@ Butter.getByUserId = async function(userId) {
         }
         return response
     } catch(e) {
-        console.log(e)
+        throw e
     }
 }
 

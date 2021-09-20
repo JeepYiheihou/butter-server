@@ -1,8 +1,24 @@
 const Butter = require("../models/butter")
 const MediaItem = require("../models/media_item")
-const ButterComment = require("../models/comment")
+const jwt_utils = require("../utils/network/jwt_utils")
+
+async function _create(req, res) {
+    const butter = new Butter(req.body)
+    const insertId = await Butter.create(butter)
+    const message = "Butter successfully posted."
+    res.json({ error: false, message: message, id: insertId });
+}
 
 async function _getAll(req, res) {
+
+    var tokenInfo
+    try {
+        tokenInfo = jwt_utils.verifyHeaders(req.headers)
+    } catch(e) {
+        console.log(e)
+        req.status(400).send({ error: true, message: "Cannot verify token." })
+        return
+    }
 
     const whenYouAreOld = 
     "When you are old and gray and full of sleep,\n \
@@ -148,6 +164,10 @@ async function _getByUserId(req, res) {
     const userId = req.params.userId
     const butters = await Butter.getByUserId(userId)
     res.json(butters)
+}
+
+exports.create = function(req, res) {
+    _create(req, res)
 }
 
 exports.getByButterId = function(req, res) {

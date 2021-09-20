@@ -2,8 +2,9 @@ users:
   - userId:               int
   - creationTimestamp:    int
   - status:               varchar(255)
-  - name:                 varchar(255)
-  - email:                varchar(255)
+  - name:                 varchar(255) UNIQUE
+  - password:             varchar(255)
+  - email:                varchar(255) UNIQUE
   - address:              varchar(255)
   - gender:               varchar(255)
   - avatarUrl:            varchar(255)
@@ -18,7 +19,7 @@ wishes:
 
 butters:
   - butterId:             int
-  - userId:              int
+  - userId:               int
   - creationTimestamp:    varchar(255)
   - type:                 varchar(255)
   - status:               varchar(255)

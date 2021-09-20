@@ -8,6 +8,7 @@ const users = [
         userId: 1,
         creationTimestamp: 100000,
         name: "yiheihou",
+        password: "774fc5d077f1bc9cf634b380266575f961435a7e50f368938bdb9213ec076824", // "verygood"
         email: "myemail.gmail.com",
         address: "vancouver",
         gender: "male",
@@ -18,6 +19,7 @@ const users = [
         userId: 2,
         creationTimestamp: 100000,
         name: "goga",
+        password: "52a45eec5334d275edea7162ff45382d6ddf1b5c9d21a0f36e688af9db216f3d", // "sonumb"
         email: "youremail.gmail.com",
         address: "santa clara",
         gender: "female",
@@ -307,7 +309,7 @@ async function addEntry(promisePool, tableName, valuesItem, models) {
         const commandLine = `INSERT INTO ${tableName} SET ?`
         await promisePool.query(commandLine, valuesItem)
     } catch (e) {
-        console.log(e)
+        throw e
     }
 }
 
@@ -317,7 +319,7 @@ async function main() {
     try {
         models = yaml.load(fs.readFileSync("./models.yaml", "utf8"))
     } catch (e) {
-        console.log(e)
+        throw e
     }
 
     promisePool = connPool.promise()

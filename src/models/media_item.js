@@ -17,7 +17,7 @@ MediaItem.create = async function(mediaItem) {
         const commandLine = `INSERT INTO ${MEDIA_ITEMS_DB_TABLE_NAME} SET ?`
         await promisePool.query(commandLine, mediaItem)
     } catch(e) {
-        console.log(e)
+        throw e
     }
 }
 
@@ -34,7 +34,7 @@ MediaItem.getByMediaItemId = async function(mediaItemId) {
         }
         return response
     } catch(e) {
-        console.log(e)
+        throw e
     }
 }
 
@@ -51,7 +51,7 @@ MediaItem.getByButterId = async function(butterId) {
         }
         return response
     } catch(e) {
-        console.log(e)
+        throw e
     }
 }
 

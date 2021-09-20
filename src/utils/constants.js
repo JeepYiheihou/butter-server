@@ -1,5 +1,6 @@
 const constants = Object.freeze({
     PORT: 3000,
+    JWT_SECRETE: "butterbutter",
 
     BUTTER_URL: "/api/butters",
     MEDIA_ITEMS_URL:"/api/media_items",

@@ -8,18 +8,17 @@ async function _getByButterId(req, res) {
     res.json(comments)
 }
 
-async function _createByButterId(req, res) {
-    const butterId = req.params.butterId
+async function _create(req, res) {
     const comment = new ButterComment(req.body)
-    await ButterComment.createByButterId(butterId, comment)
+    const insertId = await ButterComment.create(comment)
     const message = "Comment successfully posted."
-    res.json({ error: false, message: message, id: response.insertId });
+    res.json({ error: false, message: message, id: insertId });
 }
 
 exports.getByButterId = function(req, res) {
     _getByButterId(req, res)
 }
 
-exports.createByButterId = function(req, res) {
-    _createByButterId(req, res)
+exports.create = function(req, res) {
+    _create(req, res)
 }
