@@ -15,7 +15,21 @@ const User = function(user) {
     this.status = user.status
 }
 
-User.login = async function(name, password) {
+User.get = async function(userId) {
+    try {
+        const promisePool = connPool.promise()
+
+        const commandLine = `SELECT * FROM ${USERS_DB_TABLE_NAME} 
+                             WHERE userId=${userId}`
+        const rawData = await promisePool.query(commandLine)
+        const response = rawData[0]
+        return response
+    } catch (e) {
+        throw e
+    }
+}
+
+User.login = async function(email, password) {
     try {
         const promisePool = connPool.promise()
 
@@ -24,8 +38,8 @@ User.login = async function(name, password) {
                                     update(password).
                                     digest("hex")
 
-        const commandLine = `SELECT * FROM ${USERS_DB_TABLE_NAME} \
-                             WHERE name='${name}' AND password='${passwordHash}'`
+        const commandLine = `SELECT * FROM ${USERS_DB_TABLE_NAME} 
+                             WHERE email='${email}' AND password='${passwordHash}'`
         const rawData = await promisePool.query(commandLine)
         const response = rawData[0]
         return response
@@ -36,6 +50,8 @@ User.login = async function(name, password) {
 
 User.create = async function(user) {
     try {
+        console.log(user)
+
         const promisePool = connPool.promise()
 
         // Status.
@@ -55,6 +71,19 @@ User.create = async function(user) {
         const response = rawData[0]
         const insertId = response.insertId
         return insertId
+    } catch(e) {
+        throw e
+    }
+}
+
+User.checkEmail = async function(email) {
+    try {
+        const promisePool = connPool.promise()
+
+        const commandLine = `SELECT * FROM ${USERS_DB_TABLE_NAME} WHERE ?`
+        const rawData = await promisePool.query(commandLine, { email: email })
+        const response = rawData[0]
+        return response
     } catch(e) {
         throw e
     }

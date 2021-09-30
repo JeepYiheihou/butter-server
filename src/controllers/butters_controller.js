@@ -21,18 +21,18 @@ async function _getAll(req, res) {
     }
 
     const whenYouAreOld = 
-    "When you are old and gray and full of sleep,\n \
-    And nodding by the fire, take down this book,\n \
-    And slowly read, and dream of the soft look\n \
-    Your eyes had once, and of their shadows deep;\n \
-    How many loved your moments of glad grace,\n \
-    And loved your beauty with love false or true;\n \
-    But one man loved the pilgrim soul in you,\n \
-    And loved the sorrows of your changing face;\n \
-    And bending down beside the glowing bars,\n \
-    Murmur, a little sadly,how love fled\n \
-    And paced upon the mountains overhead,\n \
-    And hid his face amid a crowd of stars.\n"
+    "When you are old and gray and full of sleep,\n"
+    "And nodding by the fire, take down this book,\n"
+    "And slowly read, and dream of the soft look\n"
+    "Your eyes had once, and of their shadows deep;\n"
+    "How many loved your moments of glad grace,\n"
+    "And loved your beauty with love false or true;\n"
+    "But one man loved the pilgrim soul in you,\n"
+    "And loved the sorrows of your changing face;\n"
+    "And bending down beside the glowing bars,\n"
+    "Murmur, a little sadly,how love fled\n"
+    "And paced upon the mountains overhead,\n"
+    "And hid his face amid a crowd of stars.\n"
 
     const contentText = "从明天起，做一个幸福的人\n" + whenYouAreOld
 

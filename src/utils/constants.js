@@ -3,11 +3,12 @@ const constants = Object.freeze({
     JWT_SECRETE: "butterbutter",
 
     BUTTER_URL: "/api/butters",
-    MEDIA_ITEMS_URL:"/api/media_items",
     FILE_URL:"/api/files",
     USER_URL: "/api/users",
     AVATAR_URL: "/api/avatars",
     COMMENT_URL: "/api/comments",
+    PROPOSAL_URL: "/api/proposals",
+    MEDIA_ITEMS_URL:"/api/media_items",
 
     USERS_DB_TABLE_NAME: "users",
     WISHES_DB_TABLE_NAME: "wishes",

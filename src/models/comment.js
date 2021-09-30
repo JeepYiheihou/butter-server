@@ -33,7 +33,7 @@ ButterComment.getByButterId = async function(butterId) {
     try {
         const promisePool = connPool.promise()
 
-        const commandLine = `SELECT * FROM ${COMMENTS_DB_TABLE_NAME} \
+        const commandLine = `SELECT * FROM ${COMMENTS_DB_TABLE_NAME} 
                              WHERE butterId=${butterId}`
         const rawData = await promisePool.query(commandLine)
         const response = rawData[0]

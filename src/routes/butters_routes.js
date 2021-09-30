@@ -8,4 +8,6 @@ router.get("/butterId/:butterId", buttersController.getByButterId)
 
 router.get("/userId/:userId", buttersController.getByUserId)
 
+router.post("/", buttersController.create)
+
 module.exports = router;

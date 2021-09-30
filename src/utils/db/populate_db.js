@@ -9,7 +9,7 @@ const users = [
         creationTimestamp: 100000,
         name: "yiheihou",
         password: "774fc5d077f1bc9cf634b380266575f961435a7e50f368938bdb9213ec076824", // "verygood"
-        email: "myemail.gmail.com",
+        email: "myemail@gmail.com",
         address: "vancouver",
         gender: "male",
         avatarUrl: "1.jpeg",
@@ -20,7 +20,7 @@ const users = [
         creationTimestamp: 100000,
         name: "goga",
         password: "52a45eec5334d275edea7162ff45382d6ddf1b5c9d21a0f36e688af9db216f3d", // "sonumb"
-        email: "youremail.gmail.com",
+        email: "youremail@gmail.com",
         address: "santa clara",
         gender: "female",
         avatarUrl: "2.jpeg",

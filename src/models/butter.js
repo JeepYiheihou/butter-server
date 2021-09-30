@@ -23,10 +23,13 @@ Butter.create = async function(butter) {
         if (!butter.mediaItems) {
             throw("mediaItems should be specified in a Butter object.")
         }
-        promisePool = connPool.promise()
+        const promisePool = connPool.promise()
 
         const mediaItems = butter.mediaItems
         delete butter.mediaItems
+        butter.type = "gallery"
+        butter.status = "active"
+        butter.creationTimestamp = Math.floor(Date.now() / 1000)
         
         // Insert butter, and then get the butter's id.
         const commandLineButter = `INSERT INTO ${BUTTERS_DB_TABLE_NAME} SET ?`
@@ -51,7 +54,7 @@ Butter.getByButterId = async function(butterId) {
     try {
         const promisePool = connPool.promise()
 
-        const commandLine = `SELECT * FROM ${BUTTERS_DB_TABLE_NAME} \
+        const commandLine = `SELECT * FROM ${BUTTERS_DB_TABLE_NAME} 
                              WHERE butterId=${butterId}`
         const rawData = await promisePool.query(commandLine)
         const response = rawData[0]
@@ -70,7 +73,7 @@ Butter.getByUserId = async function(userId) {
     try {
         const promisePool = connPool.promise()
 
-        const commandLine = `SELECT * FROM ${BUTTERS_DB_TABLE_NAME} \
+        const commandLine = `SELECT * FROM ${BUTTERS_DB_TABLE_NAME} 
                              WHERE userId=${userId}`
         const rawData = await promisePool.query(commandLine)
         const response = rawData[0]

@@ -25,7 +25,7 @@ MediaItem.getByMediaItemId = async function(mediaItemId) {
     try {
         const promisePool = connPool.promise()
 
-        const commandLine = `SELECT * FROM ${MEDIA_ITEMS_DB_TABLE_NAME} \
+        const commandLine = `SELECT * FROM ${MEDIA_ITEMS_DB_TABLE_NAME} 
                              WHERE mediaItemId=${mediaItemId}`
         const rawData = await promisePool.query(commandLine)
         const response = rawData[0]
@@ -42,7 +42,7 @@ MediaItem.getByButterId = async function(butterId) {
     try {
         const promisePool = connPool.promise()
 
-        const commandLine = `SELECT * FROM ${MEDIA_ITEMS_DB_TABLE_NAME} \
+        const commandLine = `SELECT * FROM ${MEDIA_ITEMS_DB_TABLE_NAME} 
                              WHERE butterId=${butterId} ORDER BY mediaItemId ASC`
         const rawData = await promisePool.query(commandLine)
         const response = rawData[0]
